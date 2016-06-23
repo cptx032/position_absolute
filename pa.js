@@ -16,7 +16,7 @@ function absolutize()
 	{
 		elem = document.getElementById( pa_elems[length].id );
 		s = elem.style;
-		s.position = 'fixed';
+		s.position = 'absolute';
 		if ( pa_elems[length].width != undefined )
 		{
 			s.width = (W_WIDTH * pa_elems[length].width) + 'px';
@@ -60,4 +60,9 @@ function pa_start( elems )
 {
 	window.pa_elems = elems;
 	absolutize();
+
+	window.addEventListener('resize', function(){
+		// timeout to run in thread
+		setTimeout(absolutize, 1);
+	});
 }
