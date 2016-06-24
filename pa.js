@@ -17,41 +17,59 @@ function absolutize()
 		elem = document.getElementById( pa_elems[length].id );
 		s = elem.style;
 		s.position = 'absolute';
-		if ( pa_elems[length].width != undefined )
-		{
+		if ( pa_elems[length].width != undefined ) {
 			s.width = (W_WIDTH * pa_elems[length].width) + 'px';
 		}
-		if ( pa_elems[length].height != undefined )
-		{
+		else {
+			s.width = null;
+		}
+		
+		if ( pa_elems[length].height != undefined ) {
 			s.height = (W_HEIGHT * pa_elems[length].height) + 'px';
 		}
-		if ( pa_elems[length].left != undefined )
-		{
+		else {
+			s.height = null;
+		}
+		
+		if ( pa_elems[length].left != undefined ) {
 			s.left = (W_WIDTH * pa_elems[length].left) + 'px';
 		}
-		if ( pa_elems[length].right != undefined )
-		{
+		else {
+			s.left = null;
+		}
+		
+		if ( pa_elems[length].right != undefined ) {
 			s.right = (W_WIDTH * pa_elems[length].right) + 'px';
 		}
-		if ( pa_elems[length].bottom != undefined )
-		{
+		else {
+			s.right = null;
+		}
+		
+		if ( pa_elems[length].bottom != undefined ) {
 			s.bottom = (W_HEIGHT * pa_elems[length].bottom) + 'px';
 		}
-		if ( pa_elems[length].top != undefined )
-		{
+		else {
+			s.bottom = null;
+		}
+		
+		if ( pa_elems[length].top != undefined ) {
 			s.top = (W_HEIGHT * pa_elems[length].top) + 'px';
 		}
+		else {
+			s.top = null;
+		}
 		// font size é baseado no height
-		if ( pa_elems[length].fontSize != undefined )
-		{
+		if ( pa_elems[length].fontSize != undefined ) {
 			s.fontSize = (W_HEIGHT * pa_elems[length].fontSize) + 'px';
 		}
-		if ( pa_elems[length].center_horizontal )
-		{
+		else {
+			s.fontSize = null;
+		}
+		
+		if ( pa_elems[length].center_horizontal ) {
 			s.left = (W_WIDTH/2.0) - ((elem.width||elem.clientWidth)/2.0) + 'px';
 		}
-		if ( pa_elems[length].center_vertical )
-		{
+		if ( pa_elems[length].center_vertical ) {
 			s.top = (W_HEIGHT/2.0) - ((elem.height||elem.clientHeight)/2.0) + 'px';
 		}
 	}
