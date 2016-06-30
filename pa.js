@@ -3,6 +3,15 @@ pa.js
 Author: Willie Lawrence
 Email: cptx032 arroba gmail dot com
 */
+
+/*
+get by id
+*/
+function _(id)
+{
+	return document.getElementById(id);
+}
+
 function absolutize()
 {
 	var W_HEIGHT = window.innerHeight;
@@ -14,7 +23,7 @@ function absolutize()
 	var s; // style
 	while ( length-- )
 	{
-		elem = document.getElementById( pa_elems[length].id );
+		elem = _( pa_elems[length].id );
 		s = elem.style;
 		s.position = 'absolute';
 		if ( pa_elems[length].width != undefined ) {
