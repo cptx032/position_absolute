@@ -24,7 +24,7 @@ function pa_get_toast_element(message) {
 	var bg = document.createElement('div');
 	bg.id = 'pa_toast';
 	var s = bg.style;
-	s.backgroundColor = '#ffffff';
+	s.color = '#000000';
 	s.opacity = 0;
 	s.textAlign = 'center';
 	s.transition = 'opacity 1s'
@@ -76,9 +76,12 @@ function pa_toast(message, msecs, bg, fg) {
 		PA_TOAST_BG = _('pa_toast_bg');
 		PA_TOAST_TEXT = _('pa_toast');
 	}
+	PA_TOAST_TEXT.innerHTML = message;
 	pa_toast_set_style(bg, fg);
 	pa_show_toast();
-	setTimeout(function() {
-		pa_hide_toast();
-	}, msecs);
+	if (msecs > 0) {
+		setTimeout(function() {
+			pa_hide_toast();
+		}, msecs);
+	}
 }
