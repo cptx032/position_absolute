@@ -34,7 +34,7 @@ function pa_get_toast_element(message) {
 		id: 'pa_toast',
 		width: 1.0,
 		center_vertical: true,
-		fontSize: 0.05
+		fontSize: 0.07
 	};
 	pa_add( pa_dict );
 }
@@ -47,12 +47,15 @@ function pa_show_toast() {
 	PA_TOAST_BG.style.opacity = 1.0;
 }
 
-function pa_hide_toast() {
+function pa_hide_toast( end_function ) {
 	PA_TOAST_TEXT.style.opacity = 0.0;
 	PA_TOAST_BG.style.opacity = 0.0;
 	setTimeout(function() {
 		PA_TOAST_TEXT.style.zIndex = -1;
 		PA_TOAST_BG.style.zIndex = -1;
+		if (end_function) {
+			end_function();
+		}
 	}, 1000);
 }
 
@@ -60,7 +63,6 @@ function pa_hide_toast() {
 change the colors of toast
 */
 function pa_toast_set_style(bg, fg) {
-	PA_TOAST_TEXT.style.backgroundColor = bg;
 	PA_TOAST_TEXT.style.color = fg;
 
 	PA_TOAST_BG.style.backgroundColor = bg;
@@ -70,7 +72,7 @@ function pa_toast_set_style(bg, fg) {
 /*
 Show a toast
 */
-function pa_toast(message, msecs, bg, fg) {
+function pa_toast(message, msecs, bg, fg, end_function) {
 	if (_('pa_toast') == null) {
 		pa_get_toast_element(message);
 		PA_TOAST_BG = _('pa_toast_bg');
@@ -81,7 +83,7 @@ function pa_toast(message, msecs, bg, fg) {
 	pa_show_toast();
 	if (msecs > 0) {
 		setTimeout(function() {
-			pa_hide_toast();
+			pa_hide_toast( end_function );
 		}, msecs);
 	}
 }
