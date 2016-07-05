@@ -118,7 +118,7 @@ function pa_del( cmd )
 	else {
 		console.log('widget not setted');
 	}
-	absolutize();
+	pa_update_all();
 }
 
 /*
@@ -128,7 +128,7 @@ function pa_set( cmd )
 {
 	if (pa_current_widget && cmd.split(' ')[1] && cmd.split(' ')[2] ) {
 		eval('pa_current_widget.' + cmd.split(' ')[1] + ' = ' + cmd.split(' ')[2] + ';');
-		absolutize();
+		pa_update_all();
 	}
 	else {
 		console.log( 'wrong command format' );
@@ -146,7 +146,7 @@ function upk_pa_handler()
 	}
 	eval('pa_current_widget.' + pa_current_prop + ' += 0.01;');
 	console.log(pa_current_widget);
-	absolutize();
+	pa_update_all();
 }
 
 /*
@@ -167,7 +167,7 @@ function downk_pa_handler()
 	}
 	eval('pa_current_widget.' + pa_current_prop + ' -= 0.01;');
 	console.log(pa_current_widget);
-	absolutize();
+	pa_update_all();
 }
 
 function leftk_pa_handler()
