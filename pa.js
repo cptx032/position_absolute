@@ -12,6 +12,25 @@ function _(id) {
 }
 
 /*
+console.log alias
+*/
+function __(msg) {
+	console.log(msg);
+}
+
+/*
+creates a html tag element
+*/
+function pa_create_tag(tag, id, parent) {
+	var elem = document.createElement(tag);
+	elem.id = id;
+	if (parent) {
+		parent.appendChild(elem);
+	}
+	return elem;
+}
+
+/*
 updates just a single item
 */
 function pa_update_elem( elem ) {
@@ -96,12 +115,12 @@ starts to verify resize event
 */
 function pa_start( elems ) {
 	window.pa_elems = elems;
-	pa_update_all();
 
 	window.addEventListener('resize', function(){
 		// timeout to run in thread
 		setTimeout(pa_update_all, 1);
 	});
+	pa_update_all();
 }
 
 /*
@@ -110,4 +129,17 @@ add a new item to be managed by Pa
 function pa_add( elem ) {
 	window.pa_elems.push( elem );
 	pa_update_elem( elem );
+}
+
+/*
+add many once
+*/
+function pa_add_many( elems ) {
+	var i = 0;
+	while (i < elems.length) {
+		pa_add(elems[i]);
+		pa_update_elem( elems[i] );
+
+		i++;
+	}
 }
