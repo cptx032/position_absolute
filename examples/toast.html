@@ -2,16 +2,18 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>asd</title>
-		<script type="text/javascript" src="position_absolute/pa.js"></script>
-		<script type="text/javascript" src="position_absolute/pa_toast.js"></script>
+		<title>Pa - Toast</title>
+		<script type="text/javascript" src="../pa.js"></script>
+		<script type="text/javascript" src="../pa_toast.js"></script>
 		<style type="text/css">
 		@font-face {
 			font-family: AlegreyaSans;
 			src: url(/AlegreyaSans-Thin.ttf);
 		}
-		body {
+		* {
 			font-family: AlegreyaSans;
+		}
+		body {
 			margin: 0px;
 			padding: 0px;
 			overflow: hidden;
@@ -19,27 +21,23 @@
 		#toast {
 			display: none;
 		}
-		#panel {
-			padding: 10px;
-			text-align: center;
-			background-color: #eee;
-		}
 		</style>
 	</head>
 	<body onload="start()">
 		<div id="toast">ok</div>
-		<div id="panel" onclick="pa_toast('Ops...',1000);">
+		<button id="panel" onclick="pa_toast('I\'m a Pa toast!',1500, '#2ecc71', 'white');">
 			emmett
-		</div>
+		</button>
 	</body>
 	<script type="text/javascript">
 	function start() {
 		pa_start([
 			{
 				id: 'panel',
-				width: 1.0,
-				top: 0.0,
-				fontSize: 0.035
+				width: 0.8,
+				left: 0.1,
+				fontSize: 0.05,
+				center_vertical: true
 			}
 		]);
 	}
