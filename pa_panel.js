@@ -4,7 +4,7 @@ Author: Willie Lawrence
 Email: cptx032 arroba gmail dot com
 */
 ////////// depends of pa.js //////////
-
+var PA_PANEL_FONT_SIZE = 0.03;
 function pa_panel_set_display(items, display) {
 	var i = items.length;
 	while(i--) {
@@ -70,7 +70,7 @@ function pa_panel_create_title(title) {
 		id: 'pa-panel-title',
 		height: 0.1,
 		left: 0.05,
-		fontSize: 0.035,
+		fontSize: PA_PANEL_FONT_SIZE,
 		top: 0.025
 	});
 	return title_elem;
@@ -90,7 +90,7 @@ function pa_panel_create_button(label, index, parent) {
 		'a',
 		'pa-panel-item-' + index,
 		parent);
-	item.textContent = label;
+	item.innerHTML = label;
 	item.href = 'javascript:void(0);';
 	item.className = 'panel-item';
 
@@ -138,7 +138,8 @@ function pa_panel(title, activated_index, items) {
 		pa_add({
 			id: button.id,
 			width: 1.0 / len,
-			left: (1.0 / len) * i
+			left: (1.0 / len) * i,
+			fontSize: PA_PANEL_FONT_SIZE
 		});
 
 		i++;
