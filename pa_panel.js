@@ -120,7 +120,7 @@ function pa_panel(title, activated_index, items) {
 		'div',
 		'pa-panel',
 		document.body);
-
+	panel_div.className = 'pa-panel';
 	/////////////////////////////////////////////////////// creating items
 	var len = items.length;
 	var i = 0;
@@ -133,6 +133,13 @@ function pa_panel(title, activated_index, items) {
 		pa_add_many( items[i].items );
 		// changing the opacity of elements
 		pa_panel_set_opacity( items[i].items, 0 );
+		// add the panel button with the width of page
+		// the width must fit all width
+		pa_add({
+			id: button.id,
+			width: 1.0 / len,
+			left: (1.0 / len) * i
+		});
 
 		i++;
 	}
