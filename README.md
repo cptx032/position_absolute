@@ -36,3 +36,18 @@ var elem_attrs = {
 elems.push( elem_attrs );
 pa_start( elems );
 ```
+
+## pa_toast
+## pa_panel
+
+## pa_db
+**pa_db** doesn't deppends of pa.js, its a "separated" module. It abstracts the use of storaging. If HTML5 storage is available it use it, else cookies are used.
+### pa_db_get
+returns the value of a key
+
+#### pa_db_set
+sets the value of a key
+#### pa_db_del
+deletes a key
+#### pa_db_exists
+returns true if key exists
