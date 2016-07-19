@@ -3,6 +3,8 @@ pa.js
 Author: Willie Lawrence
 Email: cptx032 arroba gmail dot com
 */
+/// depends of pa.js
+
 var PA_TOAST_BG = null;
 var PA_TOAST_TEXT = null;
 /*
@@ -71,6 +73,12 @@ function pa_toast_set_style(bg, fg) {
 
 /*
 Show a toast
+args:
+	message: the messag showed
+	msecs: how many time it sleeps before hide it self
+	bg: the background color
+	fg: the foreground color
+	end_function: a function to be executed after message fadeout
 */
 function pa_toast(message, msecs, bg, fg, end_function) {
 	if (_('pa_toast') == null) {
