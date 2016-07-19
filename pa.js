@@ -31,6 +31,13 @@ function pa_create_tag(tag, id, parent) {
 }
 
 /*
+returns a string like <tag>MyString</tag>
+*/
+function pa_get_tag(tag, content) {
+	return '<' + tag + '>' + content + '</' + tag + '>';
+}
+
+/*
 updates just a single item
 */
 function pa_update_elem( elem ) {
@@ -142,4 +149,46 @@ function pa_add_many( elems ) {
 
 		i++;
 	}
+}
+
+/*
+get elem dict by element-id
+*/
+function pa_get_by_id(id) {
+	var i = window.pa_elems.length;
+	while (i--) {
+		if (window.pa_elems[i].id == id) {
+			return window.pa_elems[i];
+		}
+	}
+	return null;
+}
+
+/*
+transform a pixel value in the 0.0-1.0
+range based in window coordenate
+*/
+function pa_get_pixel(pixel, axis) {
+	// axis must be 'x'|'y'
+	var window_size = 0;
+	if (axis == 'y') {
+		window_size = window.innerHeight;
+	}
+	else if (axis == 'x') {
+		window_size = window.innerWidth;
+	}
+	return pixel / window_size;
+}
+
+/*
+transform a 0.0-1.0 value in a pixel value
+*/
+function pa_get_coord_in_pixel(coord, axis) {
+	if (axis == 'x') {
+		return window.innerWidth * coord;
+	}
+	else if (axis == 'y') {
+		return window.innerHeight * coord;
+	}
+	return null;
 }
