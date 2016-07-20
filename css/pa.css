@@ -1,0 +1,63 @@
+/*
+pa.js
+Author: Willie Lawrence
+Email: cptx032 arroba gmail dot com
+*/
+
+body {
+	overflow: hidden;
+}
+
+.pa-toast {
+	transition: left 1s, right 1s, bottom 1s, top 1s;
+	-webkit-transition: left 1s, right 1s, bottom 1s, top 1s;
+	-moz-transition: left 1s, right 1s, bottom 1s, top 1s;
+	-o-transition: left 1s, right 1s, bottom 1s, top 1s;
+}
+
+.pa-toast-bg {
+	background-color: #ffffff;
+	z-index: 99999;
+}
+
+.pa-toast-fg {
+	text-align: center;
+	z-index: 100000;
+}
+
+input.pa {
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+
+	background-color: transparent;
+
+	border-left: 0px none;
+	border-top: 0px none;
+	border-right: 0px none;
+	border-bottom: 1px solid #555;
+	transition: border-color 0.5s;
+	/* remove chrome focus thickness */
+	outline: none;
+
+	color: white;
+}
+
+input.pa:focus {
+	border-bottom: 1px solid #00aacc;
+}
+
+button.pa {
+	padding: 0px;
+	margin: 0px;
+	border-width: 0px;
+
+	border-style: solid;
+	/*background-color: transparent;*/
+	background-color: #3498db;
+	color: white;
+}
+
+button.pa.pa-button-cancel {
+	background-color: #c0392b;
+}

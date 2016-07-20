@@ -4,13 +4,27 @@
 		<meta charset="utf-8">
 		<title>Pa - Position Absolute</title>
 		<script src="../pa2.js"></script>
+		<script src="../pa_toast2.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/pa.css">
 	</head>
 	<body>
 		<div class="pa pa_centerHorizontal_1 pa_centerVertical_1 pa_fontSize_0.03">
 			Pa - Position absolute
 		</div>
+		<button onclick="ok()">ok</button>
 		<script type="text/javascript">
+		function ok() {
+			pa_toast_set_style('#2c3e50', '#fff');
+			pa_toast_prompt('Nova senha', 'password', function(value){
+				__(value);
+			}, function(value){
+				__(value);
+			});
+		}
 		pa_start();
+		// ja crio o elemento aqui para evitar criar na hora
+		// e nao executar o transition
+		pa_toast_start();
 		</script>
 	</body>
 </html>
