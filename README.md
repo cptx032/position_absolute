@@ -5,25 +5,18 @@ Import the script
 ```html
 <script type="text/javascript" charset="utf-8" src="position_absolute/pa.js"></script>
 <!-- this div will be always 50% of page, in ANY device, with no CSS "hacks" -->
-<div id="half-page" style="background-color: red;">
+<div class="pa pa_top_0 pa_width_1 pa_height_0.5">
+ok
 </div>
 ```
 
 Start the script:
 ```javascript
-pa_start([
-  {
-    id: 'half-page',
-    top: 0.0,
-    width: 1.0,
-    height: 0.5
-  }
-]);
+pa_start();
 ```
 
-pa_start attribute structure:
+pa_dict attribute structure:
 ```javascript
-var elems = [];
 var elem_attrs = {
   top: 0.0,
   bottom: 0.0,
@@ -33,8 +26,6 @@ var elem_attrs = {
   center_horizontal: true,
   fontSize: 0.01 // based in screen's height
 };
-elems.push( elem_attrs );
-pa_start( elems );
 ```
 
 ## pa_toast
