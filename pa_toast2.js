@@ -6,17 +6,11 @@ Email: cptx032 arroba gmail dot com
 /// depends of pa.js
 
 var PA_TOAST_BG = null;
-var PA_TOAST_TEXT = null;
-//  the other elements that can be showed
-var PA_TOAST_ADITIONAL = null;
 
 /*
 change the colors of toast
 */
 function pa_toast_set_style(bg, fg) {
-	if (fg) {
-		PA_TOAST_TEXT.style.color = fg;
-	}
 	if (bg) {
 		PA_TOAST_BG.style.backgroundColor = bg;
 		PA_TOAST_BG.style.color = fg;
@@ -42,7 +36,6 @@ function pa_toast_get_fg_elem() {
 
 function pa_toast_update_all() {
 	pa_update_elem( PA_TOAST_BG );
-	pa_update_elem( PA_TOAST_TEXT );
 }
 
 function pa_show_toast() {
@@ -63,7 +56,6 @@ function pa_hide_toast( end_function ) {
 function pa_toast_start() {
 	if ( !PA_TOAST_BG ) {
 		PA_TOAST_BG = pa_toast_get_bg_elem();
-		PA_TOAST_TEXT = pa_toast_get_fg_elem();
 		pa_hide_toast();
 	}
 }
@@ -79,7 +71,16 @@ args:
 */
 function pa_toast(message, msecs, bg, fg, end_function) {
 	pa_toast_start();
-	PA_TOAST_TEXT.innerHTML = message;
+	/////////////////////////////////////////////////////////////////////
+	var label = pa_create_tag('div', 'pa-toast-entry-label', PA_TOAST_BG);
+	label.className = 'pa pa-toast pa_top_0.5 pa_width_1 pa_fontSize_0.07';
+	label.innerHTML = message;
+	label.style.textAlign = 'center';
+	if ( fg ) {
+		label.style.color = fg;
+	}
+	pa_add( label );
+	/////////////////////////////////////////////////////////////////////
 	pa_toast_set_style(bg, fg);
 	pa_show_toast();
 	if (msecs > 0) {
@@ -103,6 +104,7 @@ function pa_toast_prompt_default_handler(func) {
 }
 
 function pa_toast_prompt(message, type, ok_function, cancel_function) {
+	pa_toast_start();
 	var _type = 'text';
 	if (type) {
 		_type = type;
