@@ -27,13 +27,6 @@ function pa_toast_get_bg_elem() {
 	return elem;
 }
 
-function pa_toast_get_fg_elem() {
-	var elem = pa_create_tag('div', 'pa-toast-fg', PA_TOAST_BG);
-	elem.className = 'pa pa-toast pa-toast-fg pa_width_1 pa_top_0.5 pa_left_0 pa_fontSize_0.07';
-	pa_add( elem );
-	return elem;
-}
-
 function pa_toast_update_all() {
 	pa_update_elem( PA_TOAST_BG );
 }
@@ -86,6 +79,7 @@ function pa_toast(message, msecs, bg, fg, end_function) {
 	if (msecs > 0) {
 		setTimeout(function() {
 			pa_hide_toast( end_function );
+			PA_TOAST_BG.removeChild( _('pa-toast-entry-label') );
 		}, msecs);
 	}
 }
