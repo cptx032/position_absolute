@@ -6,92 +6,138 @@ Email: cptx032 arroba gmail dot com
 /// depends of pa.js
 
 var PA_TOAST_BG = null;
-var PA_TOAST_TEXT = null;
-/*
-returns a div with the toast
-*/
-function pa_get_toast_element(message) {
-	var fill = document.createElement('div');
-	fill.id = 'pa_toast_bg';
-	var s_b = fill.style;
-	s_b.backgroundColor = '#ffffff';
-	var bg_pa = {
-		id: 'pa_toast_bg',
-		width: 1.0, height: 1.0, left: 0.0, right: 0.0
-	};
-	s_b.transition = 'opacity 1s';
-	document.body.appendChild( fill );
-	pa_add( bg_pa );
-
-	var bg = document.createElement('div');
-	bg.id = 'pa_toast';
-	var s = bg.style;
-	s.color = '#000000';
-	s.opacity = 0;
-	s.textAlign = 'center';
-	s.transition = 'opacity 1s'
-	bg.innerHTML = message;
-	document.body.appendChild( bg );
-	var pa_dict = {
-		id: 'pa_toast',
-		width: 1.0,
-		center_vertical: true,
-		fontSize: 0.07
-	};
-	pa_add( pa_dict );
-}
-
-function pa_show_toast() {
-	PA_TOAST_BG.style.zIndex = 9999;
-	PA_TOAST_TEXT.style.zIndex = 10000;
-
-	PA_TOAST_TEXT.style.opacity = 1.0;
-	PA_TOAST_BG.style.opacity = 1.0;
-}
-
-function pa_hide_toast( end_function ) {
-	PA_TOAST_TEXT.style.opacity = 0.0;
-	PA_TOAST_BG.style.opacity = 0.0;
-	setTimeout(function() {
-		PA_TOAST_TEXT.style.zIndex = -1;
-		PA_TOAST_BG.style.zIndex = -1;
-		if (end_function) {
-			end_function();
-		}
-	}, 1000);
-}
 
 /*
 change the colors of toast
 */
 function pa_toast_set_style(bg, fg) {
-	PA_TOAST_TEXT.style.color = fg;
+	if (bg) {
+		PA_TOAST_BG.style.backgroundColor = bg;
+		PA_TOAST_BG.style.color = fg;
+	}
+}
 
-	PA_TOAST_BG.style.backgroundColor = bg;
-	PA_TOAST_BG.style.color = fg;
+/*
+returns the element with background
+*/
+function pa_toast_get_bg_elem() {
+	var elem = pa_create_tag('div', 'pa-toast-bg', document.body);
+	elem.className = 'pa pa-toast pa-toast-bg pa_width_1 pa_height_1 pa_left_-1 pa_top_0';
+	pa_add( elem );
+	return elem;
+}
+
+function pa_toast_update_all() {
+	pa_update_elem( PA_TOAST_BG );
+}
+
+function pa_show_toast() {
+	PA_TOAST_BG.pa_dict.left = 0;
+	pa_toast_update_all();
+}
+
+function pa_hide_toast( end_function ) {
+	PA_TOAST_BG.pa_dict.left = -1;
+	pa_toast_update_all();
+	if ( end_function ) {
+		setTimeout(function() {
+			end_function();
+		}, 1000);
+	}
+}
+
+function pa_toast_start() {
+	if ( !PA_TOAST_BG ) {
+		PA_TOAST_BG = pa_toast_get_bg_elem();
+		pa_hide_toast();
+	}
 }
 
 /*
 Show a toast
 args:
-	message: the messag showed
+	message: the message showed
 	msecs: how many time it sleeps before hide it self
 	bg: the background color
 	fg: the foreground color
 	end_function: a function to be executed after message fadeout
 */
 function pa_toast(message, msecs, bg, fg, end_function) {
-	if (_('pa_toast') == null) {
-		pa_get_toast_element(message);
-		PA_TOAST_BG = _('pa_toast_bg');
-		PA_TOAST_TEXT = _('pa_toast');
+	pa_toast_start();
+	// is possible call many times 'pa_toast'
+	// so the label has not still removed in hide
+	if ( _('pa-toast-entry-label') ) {
+		PA_TOAST_BG.removeChild( _('pa-toast-entry-label') );
 	}
-	PA_TOAST_TEXT.innerHTML = message;
+	/////////////////////////////////////////////////////////////////////
+	var label = pa_create_tag('div', 'pa-toast-entry-label', PA_TOAST_BG);
+	label.className = 'pa pa-toast pa_top_0.5 pa_width_1 pa_fontSize_0.07';
+	label.innerHTML = message;
+	label.style.textAlign = 'center';
+	if ( fg ) {
+		label.style.color = fg;
+	}
+	pa_add( label );
+	/////////////////////////////////////////////////////////////////////
 	pa_toast_set_style(bg, fg);
 	pa_show_toast();
 	if (msecs > 0) {
 		setTimeout(function() {
 			pa_hide_toast( end_function );
+			PA_TOAST_BG.removeChild( _('pa-toast-entry-label') );
 		}, msecs);
 	}
+}
+
+function pa_toast_prompt_default_handler(func) {
+	if ( func ) {
+		func( _('pa-toast-entry-prompt').value );
+	}
+	pa_hide_toast(function(){
+		/// deleting items created
+		PA_TOAST_BG.removeChild( _('pa-toast-entry-label') );
+		PA_TOAST_BG.removeChild( _('pa-toast-entry-prompt') );
+		PA_TOAST_BG.removeChild( _('pa-toast-btn-ok') );
+		PA_TOAST_BG.removeChild( _('pa-toast-btn-cancel') );
+	});
+}
+
+function pa_toast_prompt(message, type, ok_function, cancel_function) {
+	pa_toast_start();
+	var _type = 'text';
+	if (type) {
+		_type = type;
+	}
+	/////////////////////////////////////////////////////////////////////
+	var label = pa_create_tag('div', 'pa-toast-entry-label', PA_TOAST_BG);
+	label.className = 'pa pa-toast pa_top_0.01 pa_width_1 pa_fontSize_0.07';
+	label.innerHTML = message;
+	label.style.textAlign = 'center';
+	pa_add( label );
+	/////////////////////////////////////////////////////////////////////
+	var entry = pa_create_tag('input', 'pa-toast-entry-prompt', PA_TOAST_BG);
+	entry.type = _type;
+	entry.className = 'pa pa-toast pa_top_0.5 pa_width_1 pa_fontSize_0.07';
+	pa_add( entry );
+	/////////////////////////////////////////////////////////////////////
+	var btn_ok = pa_create_tag('button', 'pa-toast-btn-ok', PA_TOAST_BG);
+	btn_ok.textContent = 'ok';
+	btn_ok.className = 'pa pa-toast pa_bottom_0 pa_width_0.5 pa_left_0 pa_fontSize_0.05';
+	pa_add( btn_ok );
+	/////////////////////////////////////////////////////////////////////
+	var btn_cancel = pa_create_tag('button', 'pa-toast-btn-cancel', PA_TOAST_BG);
+	btn_cancel.textContent = 'cancel';
+	btn_cancel.className = 'pa pa-toast pa-button-cancel pa_bottom_0 pa_width_0.5 pa_left_0.5 pa_fontSize_0.05';
+	pa_add( btn_cancel );
+	/////////////////////////////////////////////////////////////////////
+	/// bindings
+	btn_ok.addEventListener('click', function() {
+		pa_toast_prompt_default_handler( ok_function );
+	});
+	btn_cancel.addEventListener('click', function() {
+		pa_toast_prompt_default_handler( cancel_function );
+	});
+	entry.focus();
+
+	pa_show_toast();
 }

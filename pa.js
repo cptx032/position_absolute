@@ -30,76 +30,68 @@ function pa_create_tag(tag, id, parent) {
 	return elem;
 }
 
-/*
-returns a string like <tag>MyString</tag>
-*/
-function pa_get_tag(tag, content) {
-	return '<' + tag + '>' + content + '</' + tag + '>';
-}
-
-/*
-updates just a single item
-*/
 function pa_update_elem( elem ) {
+	// elem is a DOM object
 	var W_HEIGHT = window.innerHeight;
 	var W_WIDTH = window.innerWidth;
-	var dom_elem = _( elem.id );
-	var s = dom_elem.style;
-	s.position = 'absolute';
-	if ( elem.width != undefined ) {
-		s.width = (W_WIDTH * elem.width) + 'px';
+	var style = elem.style;
+	style.position = 'absolute';
+	////////////////////////////////////////////////////////
+	if ( elem.pa_dict.width != undefined ) {
+		style.width = (W_WIDTH * elem.pa_dict.width) + 'px';
 	}
 	else {
-		s.width = null;
+		style.width = null;
 	}
-	
-	if ( elem.height != undefined ) {
-		s.height = (W_HEIGHT * elem.height) + 'px';
-	}
-	else {
-		s.height = null;
-	}
-	
-	if ( elem.left != undefined ) {
-		s.left = (W_WIDTH * elem.left) + 'px';
+	////////////////////////////////////////////////////////
+	if ( elem.pa_dict.height != undefined ) {
+		style.height = (W_HEIGHT * elem.pa_dict.height) + 'px';
 	}
 	else {
-		s.left = null;
+		style.height = null;
 	}
-	
-	if ( elem.right != undefined ) {
-		s.right = (W_WIDTH * elem.right) + 'px';
-	}
-	else {
-		s.right = null;
-	}
-	
-	if ( elem.bottom != undefined ) {
-		s.bottom = (W_HEIGHT * elem.bottom) + 'px';
+	////////////////////////////////////////////////////////
+	if ( elem.pa_dict.left != undefined ) {
+		style.left = (W_WIDTH * elem.pa_dict.left) + 'px';
 	}
 	else {
-		s.bottom = null;
+		style.left = null;
 	}
-	
-	if ( elem.top != undefined ) {
-		s.top = (W_HEIGHT * elem.top) + 'px';
+	////////////////////////////////////////////////////////
+	if ( elem.pa_dict.right != undefined ) {
+		style.right = (W_WIDTH * elem.pa_dict.right) + 'px';
 	}
 	else {
-		s.top = null;
+		style.right = null;
 	}
+	////////////////////////////////////////////////////////
+	if ( elem.pa_dict.bottom != undefined ) {
+		style.bottom = (W_HEIGHT * elem.pa_dict.bottom) + 'px';
+	}
+	else {
+		style.bottom = null;
+	}
+	////////////////////////////////////////////////////////
+	if ( elem.pa_dict.top != undefined ) {
+		style.top = (W_HEIGHT * elem.pa_dict.top) + 'px';
+	}
+	else {
+		style.top = null;
+	}
+	////////////////////////////////////////////////////////
 	// font size é baseado no height
-	if ( elem.fontSize != undefined ) {
-		s.fontSize = (W_HEIGHT * elem.fontSize) + 'px';
+	if ( elem.pa_dict.fontSize != undefined ) {
+		style.fontSize = (W_HEIGHT * elem.pa_dict.fontSize) + 'px';
 	}
 	else {
-		s.fontSize = null;
+		style.fontSize = null;
 	}
-	
-	if ( elem.center_horizontal ) {
-		s.left = (W_WIDTH/2.0) - ((dom_elem.width||dom_elem.clientWidth)/2.0) + 'px';
+	////////////////////////////////////////////////////////
+	if ( elem.pa_dict.centerHorizontal ) {
+		style.left = (W_WIDTH/2.0) - ((elem.width||elem.clientWidth)/2.0) + 'px';
 	}
-	if ( elem.center_vertical ) {
-		s.top = (W_HEIGHT/2.0) - ((dom_elem.height||dom_elem.clientHeight)/2.0) + 'px';
+	if ( elem.pa_dict.centerVertical ) {
+		style.top = (W_HEIGHT/2.0) - ((elem.height||elem.clientHeight)/2.0) + 'px';
 	}
 }
 
@@ -118,11 +110,46 @@ function pa_update_all() {
 }
 
 /*
+returns a pa_dict from a class name
+*/
+function pa_get_pa_dict( class_name ) {
+	var attrs = class_name.split(' ');
+	var i = attrs.length;
+	var pa_dict = {};
+	while (i--) {
+		var attr = attrs[i];
+		// some old browsers doesnt support startsWith
+		// so here i use substring
+		if (attr.substring(0,3) == 'pa_') {
+			var values = attr.split('_');
+			pa_dict[ values[1] ] = parseFloat(values[2]);
+		}
+	}
+	return pa_dict;
+}
+
+/*
+fills the pa_dict attribute of all elements
+with "pa" class name
+*/
+function pa_set_pa_dict( elems ) {
+	var i = elems.length;
+	while (i--) {
+		var elem = elems[i];
+		if (!elem.pa_dict) {
+			elem.pa_dict = pa_get_pa_dict( elem.className );
+			window.pa_elems.push( elem );
+		}
+	}
+}
+
+/*
 starts to verify resize event
 */
-function pa_start( elems ) {
-	window.pa_elems = elems;
-
+function pa_start( ) {
+	window.pa_elems = [];
+	var elems = document.getElementsByClassName('pa');
+	pa_set_pa_dict( elems );
 	window.addEventListener('resize', function(){
 		// timeout to run in thread
 		setTimeout(pa_update_all, 1);
@@ -131,64 +158,15 @@ function pa_start( elems ) {
 }
 
 /*
-add a new item to be managed by Pa
+add a element to be managed by Pa.
+if pa_dict is not given the pa will
+try parse the className
 */
-function pa_add( elem ) {
+function pa_add( elem, pa_dict ) {
+	if (!pa_dict) {
+		pa_dict = pa_get_pa_dict( elem.className );
+	}
+	elem.pa_dict = pa_dict;
 	window.pa_elems.push( elem );
 	pa_update_elem( elem );
-}
-
-/*
-add many once
-*/
-function pa_add_many( elems ) {
-	var i = 0;
-	while (i < elems.length) {
-		pa_add(elems[i]);
-		pa_update_elem( elems[i] );
-
-		i++;
-	}
-}
-
-/*
-get elem dict by element-id
-*/
-function pa_get_by_id(id) {
-	var i = window.pa_elems.length;
-	while (i--) {
-		if (window.pa_elems[i].id == id) {
-			return window.pa_elems[i];
-		}
-	}
-	return null;
-}
-
-/*
-transform a pixel value in the 0.0-1.0
-range based in window coordenate
-*/
-function pa_get_pixel(pixel, axis) {
-	// axis must be 'x'|'y'
-	var window_size = 0;
-	if (axis == 'y') {
-		window_size = window.innerHeight;
-	}
-	else if (axis == 'x') {
-		window_size = window.innerWidth;
-	}
-	return pixel / window_size;
-}
-
-/*
-transform a 0.0-1.0 value in a pixel value
-*/
-function pa_get_coord_in_pixel(coord, axis) {
-	if (axis == 'x') {
-		return window.innerWidth * coord;
-	}
-	else if (axis == 'y') {
-		return window.innerHeight * coord;
-	}
-	return null;
 }
