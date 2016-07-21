@@ -64,6 +64,11 @@ args:
 */
 function pa_toast(message, msecs, bg, fg, end_function) {
 	pa_toast_start();
+	// is possible call many times 'pa_toast'
+	// so the label has not still removed in hide
+	if ( _('pa-toast-entry-label') ) {
+		PA_TOAST_BG.removeChild( _('pa-toast-entry-label') );
+	}
 	/////////////////////////////////////////////////////////////////////
 	var label = pa_create_tag('div', 'pa-toast-entry-label', PA_TOAST_BG);
 	label.className = 'pa pa-toast pa_top_0.5 pa_width_1 pa_fontSize_0.07';
