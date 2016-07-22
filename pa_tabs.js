@@ -22,8 +22,21 @@ two separeted divs:
 		+ has many items, the item should not
 			use pa directly, but the content panel
 			do
+each item has a 'pa-tab-id-' class where the rest of class name
+is the id of content item
 */
 
+function pa_tabs_contains_class(elem, className) {
+	if (elem.classList) {
+		return elem.classList.contains( className );
+	}
+	// fixme > old browsers
+	return null;
+}
+
+/*
+remove a CSS class from element
+*/
 function pa_tabs_remove_class(elem, className) {
 	if (elem.classList) {
 		elem.classList.remove( className );
@@ -33,6 +46,9 @@ function pa_tabs_remove_class(elem, className) {
 	}
 }
 
+/*
+add a CSS class to element
+*/
 function pa_tabs_add_class(elem, className) {
 	if (elem.classList) {
 		elem.classList.add( className );
@@ -40,6 +56,35 @@ function pa_tabs_add_class(elem, className) {
 	else {
 		// fixme > old browsers
 	}
+}
+
+/*
+returns the suffix of 'pa-tab-id-' class
+*/
+function pa_tabs_get_content_item_id(item_tab) {
+	var classes = item_tab.className.split(' ');
+	var i = classes.length;
+	while (i--) {
+		if (classes[i].substr(0,10) == 'pa-tab-id-') {
+			return classes[i].substr(10); // the rest
+		}
+	}
+}
+
+/*
+sets pa_dict.left to -1
+*/
+function pa_tabs_hide_elem(elem) {
+	elem.pa_dict.left = -1;
+	pa_update_elem(elem);
+}
+
+/*
+sets pa_dict.left to 0
+*/
+function pa_tabs_show_elem(elem) {
+	elem.pa_dict.left = 0;
+	pa_update_elem(elem);
 }
 
 /*
@@ -51,10 +96,11 @@ function pa_tabs_active_tab(tab_elem, active_elem) {
 	var items = tab_elem.getElementsByClassName('pa-tab-menu-item');
 	var i = items.length;
 	while ( i-- ) {
-		__(i);
 		pa_tabs_remove_class(items[i], 'pa-tab-menu-item-active');
+		pa_tabs_hide_elem( _( pa_tabs_get_content_item_id(items[i]) ) );
 	}
 	pa_tabs_add_class(active_elem, 'pa-tab-menu-item-active');
+	pa_tabs_show_elem( _( pa_tabs_get_content_item_id(active_elem) ) );
 }
 
 function pa_tabs_start(id_panel, id_content, active_index) {
