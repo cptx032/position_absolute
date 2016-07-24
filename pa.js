@@ -34,6 +34,10 @@ function pa_update_elem( elem ) {
 	// elem is a DOM object
 	var W_HEIGHT = window.innerHeight;
 	var W_WIDTH = window.innerWidth;
+	if (elem.parentElement != document.body) {
+		W_HEIGHT = elem.parentElement.clientHeight;
+		W_WIDTH = elem.parentElement.clientWidth;
+	}
 	var style = elem.style;
 	style.position = 'absolute';
 	////////////////////////////////////////////////////////

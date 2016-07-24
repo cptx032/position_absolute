@@ -61,3 +61,20 @@ button.pa {
 button.pa.pa-button-cancel {
 	background-color: #c0392b;
 }
+
+/*/// TABS */
+.pa-tab-menu-item {
+	border-bottom: 2px solid rgba(39, 174, 96, 0);
+	font-weight: normal;
+	transition: border-color 0.8s;
+	-webkit-transition: border-color 0.5s;
+	padding: 0px;
+	margin: 0px;
+}
+.pa-tab-menu-item-active {
+	border-color: #2980b9;
+	font-weight: bold;
+}
+.pa-tab-content-item {
+	transition: left 1s;
+}
