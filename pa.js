@@ -174,3 +174,17 @@ function pa_add( elem, pa_dict ) {
 	window.pa_elems.push( elem );
 	pa_update_elem( elem );
 }
+
+/*
+get a value in pixels and returns a value in range [0,1]
+*/
+function pa_get_pixel(pixels, axis) {
+	var value = 0;
+	if (axis == 'x') {
+		value = window.innerWidth;
+	}
+	else {
+		value = window.innerHeight;
+	}
+	return pixels / value;
+}

@@ -89,7 +89,7 @@ function pa_toast(message, msecs, bg, fg, end_function) {
 	}
 }
 
-function pa_toast_prompt_default_handler(func) {
+function pa_toast_prompt_default_handler(func, end_function) {
 	if ( func ) {
 		func( _('pa-toast-entry-prompt').value );
 	}
@@ -99,10 +99,14 @@ function pa_toast_prompt_default_handler(func) {
 		PA_TOAST_BG.removeChild( _('pa-toast-entry-prompt') );
 		PA_TOAST_BG.removeChild( _('pa-toast-btn-ok') );
 		PA_TOAST_BG.removeChild( _('pa-toast-btn-cancel') );
+
+		if (end_function) {
+			end_function();
+		}
 	});
 }
 
-function pa_toast_prompt(message, type, ok_function, cancel_function) {
+function pa_toast_prompt(message, type, ok_function, cancel_function, end_function) {
 	pa_toast_start();
 	var _type = 'text';
 	if (type) {
@@ -117,7 +121,7 @@ function pa_toast_prompt(message, type, ok_function, cancel_function) {
 	/////////////////////////////////////////////////////////////////////
 	var entry = pa_create_tag('input', 'pa-toast-entry-prompt', PA_TOAST_BG);
 	entry.type = _type;
-	entry.className = 'pa pa-toast pa_top_0.5 pa_width_1 pa_fontSize_0.07';
+	entry.className = 'pa pa-toast pa_left_0 pa_top_0.5 pa_width_1 pa_fontSize_0.07';
 	pa_add( entry );
 	/////////////////////////////////////////////////////////////////////
 	var btn_ok = pa_create_tag('button', 'pa-toast-btn-ok', PA_TOAST_BG);
@@ -132,12 +136,33 @@ function pa_toast_prompt(message, type, ok_function, cancel_function) {
 	/////////////////////////////////////////////////////////////////////
 	/// bindings
 	btn_ok.addEventListener('click', function() {
-		pa_toast_prompt_default_handler( ok_function );
+		pa_toast_prompt_default_handler( ok_function, end_function );
 	});
 	btn_cancel.addEventListener('click', function() {
-		pa_toast_prompt_default_handler( cancel_function );
+		pa_toast_prompt_default_handler( cancel_function, end_function );
 	});
 	entry.focus();
 
 	pa_show_toast();
+}
+
+/*
+allow show a prompt after another prompt
+*/
+function pa_toast_many_prompts(message, type, ok_f, cancel_f) {
+	var button_pressed = 0; // 1: ok 2: cancel
+	var value = null;
+	pa_toast_prompt(message, type, function(writted_value) {
+		value = writted_value;
+		button_pressed = 1;
+	}, function() {
+		button_pressed = 2;
+	}, function() {
+		if (ok_f && (button_pressed == 1)) {
+			ok_f( value );
+		}
+		else if (cancel_f && (button_pressed == 2)) {
+			cancel_f( value );
+		}
+	});
 }
