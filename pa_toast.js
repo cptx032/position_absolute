@@ -71,7 +71,7 @@ function pa_toast(message, msecs, bg, fg, end_function) {
 	}
 	/////////////////////////////////////////////////////////////////////
 	var label = pa_create_tag('div', 'pa-toast-entry-label', PA_TOAST_BG);
-	label.className = 'pa pa-toast pa_top_0.5 pa_width_1 pa_fontSize_0.07';
+	label.className = 'pa pa-toast pa_centerVertical_1 pa_width_1 pa_fontSize_0.07';
 	label.innerHTML = message;
 	label.style.textAlign = 'center';
 	if ( fg ) {
