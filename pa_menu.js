@@ -13,7 +13,7 @@ pa-menu-item-desc: the description
 */
 
 var PA_MENU_ITEM_FONT_SIZE = 0.04;
-var PA_MENU_ITEM_Y_POS = 0.05;
+var PA_MENU_ITEM_Y_POS = 0.0;
 
 /*
 when clicked call 'handler'
