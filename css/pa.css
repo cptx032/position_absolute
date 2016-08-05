@@ -78,3 +78,8 @@ button.pa.pa-button-cancel {
 .pa-tab-content-item {
 	transition: left 1s;
 }
+
+.pa-menu-item {
+	border-top: 1px solid rgb(100, 100, 100);
+	padding-top: 10px;
+}
