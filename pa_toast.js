@@ -126,12 +126,12 @@ function pa_toast_prompt(message, type, ok_function, cancel_function, end_functi
 	/////////////////////////////////////////////////////////////////////
 	var btn_ok = pa_create_tag('button', 'pa-toast-btn-ok', PA_TOAST_BG);
 	btn_ok.textContent = 'ok';
-	btn_ok.className = 'pa pa-toast pa_bottom_0 pa_width_0.5 pa_left_0 pa_fontSize_0.05';
+	btn_ok.className = 'pa pa-toast pa_bottom_0 pa_width_0.5 pa_left_0 pa_fontSize_0.05 pa-toast-button-ok';
 	pa_add( btn_ok );
 	/////////////////////////////////////////////////////////////////////
 	var btn_cancel = pa_create_tag('button', 'pa-toast-btn-cancel', PA_TOAST_BG);
 	btn_cancel.textContent = 'cancel';
-	btn_cancel.className = 'pa pa-toast pa-button-cancel pa_bottom_0 pa_width_0.5 pa_left_0.5 pa_fontSize_0.05';
+	btn_cancel.className = 'pa pa-toast pa_bottom_0 pa_width_0.5 pa_left_0.5 pa_fontSize_0.05 pa-toast-button-cancel';
 	pa_add( btn_cancel );
 	/////////////////////////////////////////////////////////////////////
 	/// bindings

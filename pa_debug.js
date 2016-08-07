@@ -127,7 +127,7 @@ sets a property to a determinated value
 function pa_set( cmd )
 {
 	if (pa_current_widget && cmd.split(' ')[1] && cmd.split(' ')[2] ) {
-		eval('pa_current_widget.' + cmd.split(' ')[1] + ' = ' + cmd.split(' ')[2] + ';');
+		eval('pa_current_widget.pa_dict.' + cmd.split(' ')[1] + ' = ' + cmd.split(' ')[2] + ';');
 		pa_update_all();
 	}
 	else {
@@ -141,11 +141,11 @@ runned when the user clicks in up key
 function upk_pa_handler()
 {
 	if ((!pa_current_widget) && (!pa_current_prop)) { return; }
-	if ( !eval('pa_current_widget.' + pa_current_prop) ) {
-		eval('pa_current_widget.' + pa_current_prop + '=0.0;');
+	if ( !eval('pa_current_widget.pa_dict.' + pa_current_prop) ) {
+		eval('pa_current_widget.pa_dict.' + pa_current_prop + '=0.0;');
 	}
-	eval('pa_current_widget.' + pa_current_prop + ' += 0.01;');
-	console.log(pa_current_widget);
+	eval('pa_current_widget.pa_dict.' + pa_current_prop + ' += 0.01;');
+	console.log(pa_current_widget.pa_dict);
 	pa_update_all();
 }
 
@@ -162,11 +162,11 @@ function pa_show( cmd )
 function downk_pa_handler()
 {
 	if ((!pa_current_widget) && (!pa_current_prop)) { return; }
-	if ( !eval('pa_current_widget.' + pa_current_prop) ) {
-		eval('pa_current_widget.' + pa_current_prop + '=0.0;');
+	if ( !eval('pa_current_widget.pa_dict.' + pa_current_prop) ) {
+		eval('pa_current_widget.pa_dict.' + pa_current_prop + '=0.0;');
 	}
-	eval('pa_current_widget.' + pa_current_prop + ' -= 0.01;');
-	console.log(pa_current_widget);
+	eval('pa_current_widget.pa_dict.' + pa_current_prop + ' -= 0.01;');
+	console.log(pa_current_widget.pa_dict);
 	pa_update_all();
 }
 

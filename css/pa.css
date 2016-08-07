@@ -58,8 +58,13 @@ button.pa {
 	color: white;
 }
 
-button.pa.pa-button-cancel {
+button.pa.pa-toast-button-cancel {
 	background-color: #c0392b;
+	/*background-color: transparent;*/
+}
+
+button.pa.pa-toast-button-ok {
+	/*background-color: transparent;*/
 }
 
 /*/// TABS */
@@ -68,8 +73,9 @@ button.pa.pa-button-cancel {
 	font-weight: normal;
 	transition: border-color 0.8s;
 	-webkit-transition: border-color 0.5s;
-	padding: 0px;
-	margin: 0px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	/*margin: 0px;*/
 }
 .pa-tab-menu-item-active {
 	border-color: #2980b9;

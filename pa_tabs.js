@@ -103,7 +103,29 @@ function pa_tabs_active_tab(tab_elem, active_elem) {
 	pa_tabs_show_elem( _( pa_tabs_get_content_item_id(active_elem) ) );
 }
 
-function pa_tabs_start(id_panel, id_content, active_index) {
+/*
+args:
+	+ tab_div_id: HTMLElem : the div that is parent of tab items
+	+ content_div_id: HTMLElem : the content div
+*/
+function pa_tabs_adjust_content_div_position(tab_div, content_div) {
+	var tab_height = tab_div.getElementsByClassName('pa-tab-menu-item')[0].clientHeight;
+	// 3 = 2px (border of pa-tab-item) + 1px (border of content item)
+	var border = pa_get_pixel(3, 'y');
+	content_div.pa_dict.top = (tab_height / window.innerHeight) + border;
+	content_div.pa_dict.height = 1.0 - content_div.pa_dict.top;
+	pa_update_elem( content_div );
+}
+
+/*
+args:
+	+ id_panel: the id of div that is parent of all tab items
+	+ id_content: the id of div that is parent of all content divs
+	+ active_index: the index of activated tab
+	+ adjust_content_position: boolean : if ===true makes the content
+		below the tabs div
+*/
+function pa_tabs_start(id_panel, id_content, active_index, adjust_content_position) {
 	var tab_elem = _( id_panel );
 	var items = tab_elem.getElementsByClassName('pa-tab-menu-item');
 	var i = 0;
@@ -120,4 +142,7 @@ function pa_tabs_start(id_panel, id_content, active_index) {
 		++i;
 	}
 	pa_tabs_active_tab( tab_elem, items[active_index] );
+	if ( adjust_content_position === true ) {
+		pa_tabs_adjust_content_div_position( _(id_panel), _(id_content) );
+	}
 }

@@ -179,6 +179,7 @@ function pa_add( elem, pa_dict ) {
 get a value in pixels and returns a value in range [0,1]
 */
 function pa_get_pixel(pixels, axis) {
+	// fixme > some elements hasn't windows as parent
 	var value = 0;
 	if (axis == 'x') {
 		value = window.innerWidth;
