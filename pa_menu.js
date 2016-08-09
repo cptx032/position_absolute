@@ -45,6 +45,7 @@ function pa_menu_add_item(parentid, title, description, handler) {
 	if(handler) {
 		item.addEventListener('click', handler);
 	}
+	return item;
 }
 
 function pa_menu_remove_item() {
