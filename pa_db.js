@@ -31,10 +31,15 @@ if (localStorage) {
 	pa_db_support_local_storage = true;
 }
 
+var pa_db_override_functions = null;
+
 /*
 returns a storaged value
 */
 function pa_db_get(key) {
+	if (pa_db_override_functions) {
+		return pa_db_override_functions.pa_db_get(key);
+	}
 	if (pa_db_support_local_storage) {
 		return localStorage[key];
 	}
@@ -45,6 +50,9 @@ function pa_db_get(key) {
 sets a storaged value
 */
 function pa_db_set(key, value) {
+	if (pa_db_override_functions) {
+		return pa_db_override_functions.pa_db_set(key, value);
+	}
 	if (pa_db_support_local_storage) {
 		localStorage[key] = value;
 	}
@@ -57,6 +65,9 @@ function pa_db_set(key, value) {
 dels a storaged value
 */
 function pa_db_del(key) {
+	if (pa_db_override_functions) {
+		return pa_db_override_functions.pa_db_del(key);
+	}
 	if (pa_db_support_local_storage) {
 		localStorage.removeItem(key);
 	}
@@ -69,6 +80,9 @@ function pa_db_del(key) {
 returns true if a storaged value exists
 */
 function pa_db_exists(key) {
+	if (pa_db_override_functions) {
+		return pa_db_override_functions.pa_db_exists(key);
+	}
 	if (pa_db_support_local_storage) {
 		if (localStorage[key]) {
 			return true;
