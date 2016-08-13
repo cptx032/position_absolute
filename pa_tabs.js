@@ -112,7 +112,7 @@ function pa_tabs_adjust_content_div_position(tab_div, content_div) {
 	var tab_height = tab_div.getElementsByClassName('pa-tab-menu-item')[0].clientHeight;
 	// 3 = 2px (border of pa-tab-item) + 1px (border of content item)
 	var border = pa_get_pixel(3, 'y');
-	content_div.pa_dict.top = (tab_height / window.innerHeight) + border;
+	content_div.pa_dict.top = (tab_height / window.innerHeight) + border + tab_div.pa_dict.top;
 	content_div.pa_dict.height = 1.0 - content_div.pa_dict.top;
 	pa_update_elem( content_div );
 }
