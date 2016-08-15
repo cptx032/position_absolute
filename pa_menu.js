@@ -30,7 +30,12 @@ function pa_menu_add_item(parentid, title, description, handler) {
 	item.href = 'javascript:void(0);';
 	item.style.textAlign = 'left';
 	item.className = 'pa-menu-item';
-	item.innerHTML = title + '<br><div class="pa-menu-item-desc">' + description + '</div>';
+	if (description) {
+		item.innerHTML = title + '<br><div class="pa-menu-item-desc">' + description + '</div>';
+	}
+	else {
+		item.innerHTML = '<center class="btn">' + title + '</center>';
+	}
 	var pa_dict = {
 		width: 1.0,
 		left: 0.0,
@@ -46,6 +51,10 @@ function pa_menu_add_item(parentid, title, description, handler) {
 		item.addEventListener('click', handler);
 	}
 	return item;
+}
+
+function pa_menu_add_button(parentid, description, handler) {
+	return pa_menu_add_item(parentid, description, null, handler);
 }
 
 function pa_menu_remove_item() {
