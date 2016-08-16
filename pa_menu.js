@@ -34,7 +34,7 @@ function pa_menu_add_item(parentid, title, description, handler) {
 		item.innerHTML = title + '<br><div class="pa-menu-item-desc">' + description + '</div>';
 	}
 	else {
-		item.innerHTML = '<center class="btn">' + title + '</center>';
+		item.innerHTML = '<center>' + title + '</center>';
 	}
 	var pa_dict = {
 		width: 1.0,
