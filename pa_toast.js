@@ -106,7 +106,7 @@ function pa_toast_prompt_default_handler(func, end_function) {
 	});
 }
 
-function pa_toast_prompt(message, type, ok_function, cancel_function, end_function) {
+function pa_toast_prompt(message, type, ok_function, cancel_function, end_function, default_value) {
 	pa_toast_start();
 	var _type = 'text';
 	if (type) {
@@ -122,6 +122,9 @@ function pa_toast_prompt(message, type, ok_function, cancel_function, end_functi
 	var entry = pa_create_tag('input', 'pa-toast-entry-prompt', PA_TOAST_BG);
 	entry.type = _type;
 	entry.className = 'pa pa-toast pa_left_0 pa_top_0.5 pa_width_1 pa_fontSize_0.07';
+	if (default_value) {
+		entry.value = default_value;
+	}
 	pa_add( entry );
 	/////////////////////////////////////////////////////////////////////
 	var btn_ok = pa_create_tag('button', 'pa-toast-btn-ok', PA_TOAST_BG);
@@ -149,7 +152,7 @@ function pa_toast_prompt(message, type, ok_function, cancel_function, end_functi
 /*
 allow show a prompt after another prompt
 */
-function pa_toast_many_prompts(message, type, ok_f, cancel_f) {
+function pa_toast_many_prompts(message, type, ok_f, cancel_f, default_value) {
 	var button_pressed = 0; // 1: ok 2: cancel
 	var value = null;
 	pa_toast_prompt(message, type, function(writted_value) {
@@ -164,5 +167,5 @@ function pa_toast_many_prompts(message, type, ok_f, cancel_f) {
 		else if (cancel_f && (button_pressed == 2)) {
 			cancel_f( value );
 		}
-	});
+	}, default_value);
 }
