@@ -85,3 +85,54 @@ button.pa.pa-toast-button-cancel {
 	border-top: 1px solid rgb(100, 100, 100);
 	padding-top: 10px;
 }
+
+.pa-hidden {
+	display: none;
+}
+
+.pa-label-check {
+	position: relative;
+	display: block;
+	height: 20px;
+	width: 44px;
+	background: #898989;
+	border-radius: 100px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.pa-label-check:after {
+	position: absolute;
+	left: -2px;
+	top: -3px;
+	display: block;
+	width: 26px;
+	height: 26px;
+	border-radius: 100px;
+	background: #fff;
+	box-shadow: 0px 3px 3px rgba(0,0,0,0.05);
+	content: '';
+	transition: all 0.3s ease;
+}
+
+.pa-label-check:active:after {
+	transform: scale(1.15, 0.85);
+}
+
+.pa-check-box:checked ~ label {
+	background: #6fbeb5;
+}
+
+.pa-check-box:checked ~ label:after {
+	left: 20px;
+	background: #179588;
+}
+
+.pa-check-box:disabled ~ label {
+	background: #d5d5d5;
+	pointer-events: none;
+}
+
+.pa-check-box:disabled ~ label:after {
+	background: #bcbdbc;
+}

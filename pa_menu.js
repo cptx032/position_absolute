@@ -15,6 +15,12 @@ pa-menu-item-desc: the description
 var PA_MENU_ITEM_FONT_SIZE = 0.04;
 var PA_MENU_ITEM_Y_POS = 0.0;
 
+var PA_CHECK_BOX = '' +
+		'<div>' +
+			'<input type="checkbox" class="pa-check-box pa-hidden"/>'+
+			'<label class="pa-label-check"></label>'+
+		'</div>';
+
 /*
 when clicked call 'handler'
 */
@@ -31,7 +37,7 @@ function pa_menu_add_item(parentid, title, description, handler) {
 	item.style.textAlign = 'left';
 	item.className = 'pa-menu-item';
 	if (description) {
-		item.innerHTML = title + '<br><div class="pa-menu-item-desc">' + description + '</div>';
+		item.innerHTML = title + '<br><div style="font-size: 80%;" class="pa-menu-item-desc">' + description + '</div>';
 	}
 	else {
 		item.innerHTML = '<center>' + title + '</center>';
@@ -57,6 +63,21 @@ function pa_menu_add_button(parentid, description, handler) {
 	return pa_menu_add_item(parentid, description, null, handler);
 }
 
+function pa_menu_add_check(parentid, description, onclick) {
+	var result = pa_menu_add_item(parentid, description, PA_CHECK_BOX, function(event) {
+		var checkbox = this.getElementsByTagName('input')[0];
+		checkbox.checked = !checkbox.checked;
+		if (onclick) {
+			onclick(event);
+		}
+	});
+	var input_html = result.getElementsByTagName('input')[0];
+	var label_html = result.getElementsByTagName('label')[0];
+	input_html.id = 'pa-input-' + PA_MENU_ITEM_Y_POS;
+	label_html.htmlFor = 'pa-input-' + PA_MENU_ITEM_Y_POS;
+	return result;
+}
+
 function pa_menu_remove_item() {
-	//
+	// fixme
 }
