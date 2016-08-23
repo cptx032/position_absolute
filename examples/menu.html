@@ -6,58 +6,118 @@
 		<script src="../pa.js"></script>
 		<script src="../pa_menu.js"></script>
 		<link rel="stylesheet" type="text/css" href="../css/pa.css">
-        <style>
-            body {
-                background-color: black;
-            }
-            .pa-menu-item {
-                background-color: #000000;
-            }
+		<link href="http://www.cssscript.com/wp-includes/css/sticky.css" rel="stylesheet" type="text/css">
+		<style>
+			body {
+				background-color: black;
+			}
+			.pa-menu-item {
+				background-color: #000000;
+				padding-top: 15px;
+				padding-bottom: 15px;
+				padding-left: 15px;
+				padding-right: 15px;
+			}
 
-            .pa-menu-item:hover {
-                background-color: #222;
-            }
+			.pa-menu-item:hover {
+				background-color: #00aacc;
+			}
 
-            .pa-menu-item:active {
-                background-color: #333;
-            }
+			.pa-menu-item:hover .pa-menu-item-desc {
+				color: #111;
+			}
 
-            .pa-menu-item-desc {
-                color: #00aacc;
-            }
-            a {
-                text-decoration: none;
-                outline: 0;
-                color: #ffffff;
-                font-weight: bold;
-            }
-            @font-face {
-                font-family: AlegreyaSans;
-                src: url(../css/fonts/AlegreyaSans-Thin.ttf);
-            }
+			.pa-menu-item:active {
+				background-color: #333;
+			}
 
-            * {
-                font-family: AlegreyaSans;
-            }
-            .center-aligned {
-                text-align: center;
-            }
-        </style>
+			.pa-menu-item-desc {
+				color: #555;
+			}
+			a {
+				text-decoration: none;
+				outline: 0;
+				color: #ffffff;
+				font-weight: bold;
+			}
+			@font-face {
+				font-family: AlegreyaSans;
+				src: url(../css/fonts/AlegreyaSans-Thin.ttf);
+			}
+
+			* {
+				font-family: AlegreyaSans;
+			}
+			.center-aligned {
+				text-align: center;
+			}
+
+            /***********************************************/
+			.lbl {
+				position: relative;
+				display: block;
+				height: 20px;
+				width: 44px;
+				background: #898989;
+				border-radius: 100px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+			}
+
+			.lbl:after {
+				position: absolute;
+				left: -2px;
+				top: -3px;
+				display: block;
+				width: 26px;
+				height: 26px;
+				border-radius: 100px;
+				background: #fff;
+				box-shadow: 0px 3px 3px rgba(0,0,0,0.05);
+				content: '';
+				transition: all 0.3s ease;
+			}
+
+			.lbl:active:after { transform: scale(1.15, 0.85); }
+
+			.cbx:checked ~ label { background: #6fbeb5; }
+
+			.cbx:checked ~ label:after {
+				left: 20px;
+				background: #179588;
+			}
+
+			.cbx:disabled ~ label {
+				background: #d5d5d5;
+				pointer-events: none;
+			}
+
+			.cbx:disabled ~ label:after { background: #bcbdbc; }
+
+			.hidden { display: none; }
+		</style>
 	</head>
 	<body>
-        <div class="pa pa_top_0 pa_left_0 pa_width_1 pa_height_1 pa-tab-content-item" id="config">
-        </div>
+
+		<div class="pa pa_top_0 pa_left_0 pa_width_1 pa_height_1 pa-tab-content-item" id="config">
+		</div>
 		<script type="text/javascript">
 		pa_start();
-        function _default_handler(event) {
-            console.log(this, event);
-        }
-        pa_menu_add_item('config', 'Title 1', 'Description 1', _default_handler);
-        pa_menu_add_item('config', 'Title 2', 'Description 2', _default_handler);
-        pa_menu_add_item('config', 'Title 3', 'Description 3', _default_handler);
-        pa_menu_add_item('config', 'Title 4', 'Description 4', _default_handler);
-        pa_menu_add_item('config', 'Title 5', 'Description 5', _default_handler);
-        pa_menu_add_button('config', 'send data', _default_handler);
+		function _default_handler(event) {
+			console.log(this, event);
+		}
+		pa_menu_add_item('config', 'Title 1', 'Description 1', _default_handler);
+		pa_menu_add_item('config', 'Title 2', 'Description 2', _default_handler);
+		pa_menu_add_item('config', 'Title 3', 'Description 3', _default_handler);
+		pa_menu_add_item('config', 'Title 4', 'Description 4', _default_handler);
+		pa_menu_add_item('config', 'Title 5', 'Description 5', _default_handler);
+		// pa_menu_add_button('config', 'send data', _default_handler);
+		var c = '' +
+		'<div>' +
+			'<input type="checkbox" id="unchecked" class="cbx hidden"/>'+
+			'<label for="unchecked" class="lbl"></label>'+
+		'</div>';
+		pa_menu_add_item('config', 'Title 1', c, _default_handler);
 		</script>
 	</body>
 </html>

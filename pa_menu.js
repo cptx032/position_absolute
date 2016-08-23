@@ -39,7 +39,7 @@ function pa_menu_add_item(parentid, title, description, handler) {
 	var pa_dict = {
 		width: 1.0,
 		left: 0.0,
-		top: (0.02 * parent.pa_menu_items.length) + PA_MENU_ITEM_Y_POS,
+		top:  PA_MENU_ITEM_Y_POS,
 		fontSize: PA_MENU_ITEM_FONT_SIZE
 	};
 	pa_add( item, pa_dict );
