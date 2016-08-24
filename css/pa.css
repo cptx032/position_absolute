@@ -81,11 +81,6 @@ button.pa.pa-toast-button-cancel {
 	transition: left 1s;
 }
 
-.pa-menu-item {
-	border-top: 1px solid rgb(100, 100, 100);
-	padding-top: 10px;
-}
-
 .pa-hidden {
 	display: none;
 }
@@ -135,4 +130,29 @@ button.pa.pa-toast-button-cancel {
 
 .pa-check-box:disabled ~ label:after {
 	background: #bcbdbc;
+}
+
+/********** MENU ********/
+.pa-menu-item {
+	border-top: 1px solid rgb(100, 100, 100);
+	background-color: #000000;
+	/* fixme: padding */ 
+	padding-top: 15px;
+	padding-bottom: 30px;
+}
+
+.pa-menu-item:hover {
+	background-color: #00aacc;
+}
+
+.pa-menu-item:hover .pa-menu-item-desc {
+	color: #111;
+}
+
+.pa-menu-item:active {
+	background-color: #333;
+}
+
+.pa-menu-item-desc {
+	color: #555;
 }
