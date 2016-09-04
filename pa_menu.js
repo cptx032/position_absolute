@@ -21,10 +21,15 @@ var PA_CHECK_BOX = '' +
 			'<label class="pa-label-check"></label>'+
 		'</div>';
 
+
+function pa_menu_get_title_elem(title, classes) {
+	return '<span class="' + classes + '">' + title + '</span>';
+}
+
 /*
 when clicked call 'handler'
 */
-function pa_menu_add_item(parentid, title, description, handler) {
+function pa_menu_add_item(parentid, title, description, handler, disabled) {
 	var parent = _(parentid);
 	if (!parent.pa_menu_items) {
 		parent.pa_menu_items = [];
@@ -36,11 +41,12 @@ function pa_menu_add_item(parentid, title, description, handler) {
 	item.href = 'javascript:void(0);';
 	item.style.textAlign = 'left';
 	item.className = 'pa-menu-item';
+	var title_elem = pa_menu_get_title_elem(title, disabled ? 'pa-menu-title-disabled' : '');
 	if (description) {
-		item.innerHTML = title + '<br><div style="font-size: 80%;" class="pa-menu-item-desc">' + description + '</div>';
+		item.innerHTML = title_elem + '<br><div style="font-size: 80%;" class="pa-menu-item-desc">' + description + '</div>';
 	}
 	else {
-		item.innerHTML = '<center>' + title + '</center>';
+		item.innerHTML = '<center>' + title_elem + '</center>';
 	}
 	var pa_dict = {
 		width: 1.0,

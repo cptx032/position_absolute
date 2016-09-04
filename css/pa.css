@@ -156,3 +156,7 @@ button.pa.pa-toast-button-cancel {
 .pa-menu-item-desc {
 	color: #555;
 }
+
+.pa-menu-title-disabled {
+	color: #888;
+}
