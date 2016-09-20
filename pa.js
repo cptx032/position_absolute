@@ -18,6 +18,22 @@ function __(msg) {
 	console.log(msg);
 }
 
+function pa_add_class(elem, class_name) {
+	if (elem.classList) {
+		elem.classList.add(class_name);
+	} else {
+		// fixme > old browsers
+	}
+}
+
+function pa_remove_class(elem, class_name) {
+	if (elem.classList) {
+		elem.classList.remove(class_name);
+	} else {
+		// fixme > old browsers
+	}
+}
+
 /*
 creates a html tag element
 */
@@ -189,3 +205,7 @@ function pa_get_pixel(pixels, axis) {
 	}
 	return pixels / value;
 }
+
+window.addEventListener('load', function () {
+	pa_update_all();
+});

@@ -160,3 +160,10 @@ button.pa.pa-toast-button-cancel {
 .pa-menu-title-disabled {
 	color: #888;
 }
+
+/************************************************/
+.pa-lm {
+	transition: left 0.5s;
+	background-color: #272f36;
+	z-index: 9999999;
+}
