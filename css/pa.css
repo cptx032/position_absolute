@@ -163,7 +163,7 @@ button.pa.pa-toast-button-cancel {
 
 /************************************************/
 .pa-lm {
-	transition: left 0.5s;
+	/*transition: left 0.5s;*/
 	background-color: #000; /*niceblue#272f36*/
 	z-index: 9999999;
 }
