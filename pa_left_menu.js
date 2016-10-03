@@ -14,12 +14,20 @@ shown: pa-lm-show
 */
 var PA_LM_TIME = 600; // milisseconds
 function pa_lm_show(elem) {
-    $(elem).animate({left:0}, PA_LM_TIME, function () {
-        pa_add_class(elem, 'pa-lm-show');
-        pa_remove_class(elem, 'pa-lm-hide');
-        elem.pa_dict.left = 0;
-        pa_update_elem(elem);
-    });
+    var anim = setInterval(function(){
+        var l = parseInt(elem.style.left, 10);
+        if (l < 0) {
+            elem.style.left = l + 10 + 'px';
+            if ((l + 10) >= 0)  {
+                pa_add_class(elem, 'pa-lm-show');
+                pa_remove_class(elem, 'pa-lm-hide');
+                elem.pa_dict.left = 0;
+                pa_update_elem(elem);
+            }
+        } else {
+            clearInterval(anim);
+        }
+    }, 1);
 
 }
 
